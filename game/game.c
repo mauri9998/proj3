@@ -110,14 +110,12 @@ Region fence = {{0,LONG_EDGE_PIXELS}, {SHORT_EDGE_PIXELS, LONG_EDGE_PIXELS}}; /*
 
 void gameOver(char x){
   if(x ==0){
-    player1Score = '0';
     bgColor = COLOR_WHITE;
     layerDraw(&layer0);
     drawString5x7(screenWidth/2, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
     int redrawScreen = 1;
   }
   else{
-    player2Score = '0';
     bgColor = COLOR_WHITE;
     layerDraw(&layer0);
     drawString5x7(screenWidth/2, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
@@ -250,17 +248,27 @@ void wdt_c_handler(){
   static short count = 0;
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
+  char newGame = 1;
   if (count == 15) {
+	  
     mlAdvance(&ml1, &ml2, &ml3,  &fieldFence);
-	  u_int switches = p2sw_read();
+    u_int switches = p2sw_read();
 
     if(player1Score == '9'){
 	    gameOver(0);
-	    if(switches)main();
+	     while (newGame) {
+	    	if(switches){
+			main();
+		}
+	    }	
     }
     else if(player2Score == '9'){
 	    gameOver(1);
-	    if(switches)main();
+	    while (newGame) {
+	    	if(switches){
+			main();
+		}
+	    }	 
     }
 
     if(!(switches & (1 << 1))){

@@ -71,7 +71,7 @@ MovLayer ml1 = { &layer2, {5,5}, 0 };// Ball Layer ml1
 MovLayer ml2 = { &layer0, {5,5}, 0 };// Bottom paddle Layer
 MovLayer ml3 = { &layer3, {5,5}, 0 };// Upper paddle Layer
 
-movLayerDraw(MovLayer *movLayers, Layer *layers){
+int movLayerDraw(MovLayer *movLayers, Layer *layers){
   int row, col;
   MovLayer *movLayer;
 
@@ -130,9 +130,6 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
   
   u_char axis;
   Region shapeBoundary;
-	
-  drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_BLACK);
-  drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_BLACK);
 
   for (; ml; ml = ml->next) {
     vec2Add(&newPos, &ml->layer->posNext, &ml->velocity);
@@ -173,6 +170,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	    else if (ml->layer->posNext.axes[1] == 20){
 	      ml2->layer->color = COLOR_RED;
 	      player1Score ++;
+	      drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_BLACK);
 	      drawChar5x7(52,152, player1Score, COLOR_YELLOW, COLOR_BLACK);
 	      newPos.axes[0] = screenWidth/2;
 	      newPos.axes[1] = (screenHeight/2);
@@ -186,6 +184,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	    else if (ml->layer->posNext.axes[1] == 135){
 	      ml1->layer->color = COLOR_RED;
 	      player2Score ++;
+	      drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_BLACK);
 	      drawChar5x7(120,152, player2Score, COLOR_GREEN, COLOR_BLACK);	   
 	      newPos.axes[0] = screenWidth/2;
 	      newPos.axes[1] = (screenHeight/2);
@@ -226,9 +225,6 @@ void main(){
 
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
-
-  drawChar5x7(52,152, player1Score, COLOR_YELLOW, COLOR_BLACK);
-  drawChar5x7(120,152, player2Score, COLOR_GREEN, COLOR_BLACK);
 
   for(;;) {
     while (!redrawScreen){ /**< Pause CPU if screen doesn't need updating */

@@ -263,7 +263,7 @@ void wdt_c_handler(){
 	  gameOver(0);
 	  while (new_game){
 	  	if(switches && count == 15){
-			count ++
+			count ++;
 			newGame();
 			main();
 		}
@@ -274,7 +274,7 @@ void wdt_c_handler(){
 	  gameOver(0);
 	  while (new_game){
 	  	if(switches && count == 15){
-			count ++
+			count ++;
 			newGame();
 			main();
 		}

@@ -251,6 +251,8 @@ void wdt_c_handler(){
   u_int switches = p2sw_read();
 	
   if(player1Score == '9'){
+	  player1Score = '0';
+	  player2Score = '0';
 	  char newGame = 1;
 	  gameOver(0);
 	  while (newGame)
@@ -258,6 +260,8 @@ void wdt_c_handler(){
 			  main();
   }
   else if(player2Score == '9'){
+	  player1Score = '0';
+	  player2Score = '0';
 	  char newGame = 1;
 	  gameOver(0);
 	  while (newGame)

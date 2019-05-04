@@ -43,7 +43,7 @@ Layer layer3 = {
   (AbShape *)&paddle,
   {(screenWidth/2), (screenHeight/2)-70},
   {0,0}, {52,10},
-  COLOR_WHITE,
+  COLOR_GOLD,
   &layer4,
 };
 Layer layer2 = {
@@ -57,7 +57,7 @@ Layer layer0 = {
   (AbShape *)&paddle,
   {(screenWidth/2), (screenHeight/2)+64}, 
   {0,0}, {52,144},
-  COLOR_WHITE,
+  COLOR_GOLD,
   &layer2,
 };
 
@@ -152,7 +152,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	    if( (ml->layer->posNext.axes[1] >= 134) && (ml->layer->posNext.axes[0] <=  ml1->layer->posNext.axes[0] + 18 && ml->layer->posNext.axes[0] >= ml1->layer->posNext.axes[0] - 18)){
 	      int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
 	      ml1->layer->color = COLOR_YELLOW;
-	      ml2->layer->color = COLOR_WHITE;
+	      ml2->layer->color = COLOR_GOLD;
 	      ml->layer->color = COLOR_YELLOW;
 	      ml->velocity.axes[0] += 1;
 	      newPos.axes[axis] += (2*velocity);
@@ -163,7 +163,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	    else if( (ml->layer->posNext.axes[1] <= 21) && (ml->layer->posNext.axes[0] <=  ml2->layer->posNext.axes[0] + 18 && ml->layer->posNext.axes[0] >= ml2->layer->posNext.axes[0] - 18)){
 	      int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
 	      ml2->layer->color = COLOR_GREEN;
-	      ml1->layer->color = COLOR_WHITE;
+	      ml1->layer->color = COLOR_GOLD;
 	      ml->layer->color = COLOR_GREEN;
 	      ml->velocity.axes[0] += 1;
 	      newPos.axes[axis] += (2*velocity);

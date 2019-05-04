@@ -32,7 +32,7 @@ Layer fieldLayer = {
   COLOR_WHITE,
   0
 };
-Layer layer4 = {/
+Layer layer4 = {
   (AbShape *)&middleLine,
   {(screenWidth/2 ), (screenHeight/2 - 3)}, 
   {0,0}, {0,0},	

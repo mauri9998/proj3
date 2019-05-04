@@ -110,21 +110,23 @@ Region fence = {{0,LONG_EDGE_PIXELS}, {SHORT_EDGE_PIXELS, LONG_EDGE_PIXELS}}; /*
 
 void gameOver(char x){
   if(x ==0){
-    bgColor = COLOR_WHITE;
-    layerDraw(&layer0);
-    drawString5x7(screenWidth/4, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
-    int redrawScreen = 1;
+	  bgColor = COLOR_WHITE;
+	  layerDraw(&layer0);
+	  drawString5x7(screenWidth/4, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
+	  drawString5x7(screenWidth / 4, screenHeight / 2 + 10, "Player 1 Wins", COLOR_VIOLET, COLOR_WHITE);
+	  int redrawScreen = 1;
   }
   else{
-    bgColor = COLOR_WHITE;
-    layerDraw(&layer0);
-    drawString5x7(screenWidth/4, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
-    int redrawScreen = 1;
+	  bgColor = COLOR_WHITE;
+	  layerDraw(&layer0);
+	  drawString5x7(screenWidth/4, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
+	  drawString5x7(screenWidth / 4, screenHeight / 2 + 10, "Player 2 Wins", COLOR_VIOLET, COLOR_WHITE);
+	  int redrawScreen = 1;
   }
 }
 
 void newGame(){
-	bgColor = COLOR_BLACK;
+	bgColor = COLOR_VIOLET;
     	layerDraw(&layer0);
 	player1Score = '0';
 	player2Score = '0';
@@ -207,13 +209,13 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
   }/**< for ml */
 }
 
-u_int bgColor = COLOR_BLACK;     /**< The background color */
-int redrawScreen = 1;           /**< Boolean for whether screen needs to be redrawn */
-Region fieldFence;		/**< fence around playing field  */
+u_int bgColor = COLOR_VIOLET;
+int redrawScreen = 1;
+Region fieldFence;
 
 
 void main(){
-  P1DIR |= GREEN_LED;		/**< Green led on when CPU on */		
+  P1DIR |= GREEN_LED;	
   P1OUT |= GREEN_LED;
 
   configureClocks();
@@ -229,16 +231,15 @@ void main(){
 
   layerGetBounds(&fieldLayer, &fieldFence);
 
-  enableWDTInterrupts();      /**< enable periodic interrupt */
-  or_sr(0x8);	              /**< GIE (enable interrupts) */
+  enableWDTInterrupts();
+  or_sr(0x8);
 
   for(;;) {
-    while (!redrawScreen){ /**< Pause CPU if screen doesn't need updating */
-      P1OUT &= ~GREEN_LED;    /**< Green led off witHo CPU */
-      or_sr(0x10);	      /**< CPU OFF */
+    while (!redrawScreen){
+      P1OUT &= ~GREEN_LED;
+      or_sr(0x10);
     }
     P1OUT |= GREEN_LED;
-    /**< Green led on when CPU on */
     redrawScreen = 0;
  
     movLayerDraw(&ml1, &layer0);
@@ -247,14 +248,9 @@ void main(){
   }
 }
 
-/** Watchdog timer interrupt handler. 15 interrupts/sec 
- *  Also has logic statements implemented for switch handlers on SW2-SW5 buttons
- *  SW2-SW3 will move the bottom paddle while SW4-SW5 will move the upper paddle
- */
-
 void wdt_c_handler(){
   static short count = 0;
-  P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
+  P1OUT |= GREEN_LED;
   count ++;
   u_int switches = p2sw_read();
 	
@@ -282,45 +278,41 @@ void wdt_c_handler(){
   if (count == 15) {
 	  
     mlAdvance(&ml1, &ml2, &ml3,  &fieldFence);
-
-    if(!(switches & (1 << 1))){
-	    if(ml2.layer->posNext.axes[0] <= 102){	
-	      ml2.layer->posNext.axes[0] += 5;
-	      bgColor = COLOR_BLACK;
-	      redrawScreen = 1;
-	      goal = 0;
+	  
+    if(!(switches & (1 << 0))){
+	    if(ml2.layer->posNext.axes[0] >= 27){
+		    ml2.layer->posNext.axes[0] -= 5;
+		    redrawScreen = 1;
+		    goal = 0;
 	    }
     }
 
-    else if(!(switches & (1 << 0))){
-      if(ml2.layer->posNext.axes[0] >= 27){
-              ml2.layer->posNext.axes[0] -= 5;
-	      bgColor = COLOR_BLACK;
-	      redrawScreen = 1;
-	      goal = 0;
-      }
+    else if(!(switches & (1 << 1))){
+	    if(ml2.layer->posNext.axes[0] <= 102){	
+		    ml2.layer->posNext.axes[0] += 5;
+		    redrawScreen = 1;
+		    goal = 0;
+	    }
     }
 
     else if(!(switches & (1 << 2))){
-       if(ml3.layer->posNext.axes[0] >= 26){
-	      ml3.layer->posNext.axes[0] -= 5;
-	      bgColor = COLOR_BLACK;
-              redrawScreen = 1;
-              goal = 0;
-      }
+	    if(ml3.layer->posNext.axes[0] >= 26){
+		    ml3.layer->posNext.axes[0] -= 5;
+		    redrawScreen = 1;
+		    goal = 0;
+	    }
     }
 
     else if(!(switches & (1 << 3))){
-      if(ml3.layer->posNext.axes[0] <= 102){
-        ml3.layer->posNext.axes[0] += 5;
-	bgColor = COLOR_BLACK;
-        redrawScreen = 1;
-        goal = 0;
-      }
+	    if(ml3.layer->posNext.axes[0] <= 102){
+		    ml3.layer->posNext.axes[0] += 5;
+		    redrawScreen = 1;
+		    goal = 0;
+	    }
     }
 
     redrawScreen = 1;
     count = 0;
   }
-  P1OUT &= ~GREEN_LED;		    /**< Green LED off when cpu off */
+  P1OUT &= ~GREEN_LED;
 }

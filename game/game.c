@@ -171,7 +171,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	      int redrawScreen = 1;
 	    }
 
-	    else if (ml->layer->posNext.axes[1] == 8){
+	    else if (ml->layer->posNext.axes[1] == 12){
 	      ml2->layer->color = COLOR_RED;
 	      player1Score ++;
 	      drawChar5x7(52,152, player1Score, COLOR_YELLOW, COLOR_VIOLET);
@@ -183,7 +183,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	      int redrawScreen = 1;
 	    }
 	    
-	    else if (ml->layer->posNext.axes[1] == 143){
+	    else if (ml->layer->posNext.axes[1] == 147){
 	      ml1->layer->color = COLOR_RED;
 	      player2Score ++;
 	      drawChar5x7(120,152, player2Score, COLOR_GREEN, COLOR_VIOLET);	   

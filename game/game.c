@@ -112,13 +112,13 @@ void gameOver(char x){
   if(x ==0){
     bgColor = COLOR_WHITE;
     layerDraw(&layer0);
-    drawString5x7(screenWidth/2, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_BLACK);
+    drawString5x7(screenWidth/4, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
     int redrawScreen = 1;
   }
   else{
     bgColor = COLOR_WHITE;
     layerDraw(&layer0);
-    drawString5x7(screenWidth/2, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_BLACK);
+    drawString5x7(screenWidth/4, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
     int redrawScreen = 1;
   }
 }
@@ -262,8 +262,7 @@ void wdt_c_handler(){
 	  char new_game = 1;
 	  gameOver(0);
 	  while (new_game){
-		count ++;
-	  	if(switches && count == 15){
+	  	if(switches){
 			newGame();
 			main();
 		}
@@ -271,10 +270,9 @@ void wdt_c_handler(){
   }
   else if(player2Score == '9'){
 	  char new_game = 1;
-	  gameOver(0);
+	  gameOver(1);
 	  while (new_game){
-		count ++;
-	  	if(switches && count == 15){
+	  	if(switches){
 			newGame();
 			main();
 		}

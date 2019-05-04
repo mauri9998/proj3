@@ -246,18 +246,14 @@ void wdt_c_handler(){
 	
   if (count == 15) {
 	  if(player1Score == '9'){
-		  char new_game = 1;
-		  //gameOver(0);
-		  while((switches & (1 << 0))){gameOver(0);}
-		  newGame();
-		  main();
+		  gameOver(0);
+		  if(!(switches & (1 << 0)))
+			  newGame();
 	  }
 	  else if(player2Score == '9'){
 		  gameOver(1);
-		  if(!(switches & (1 << 0))){
+		  if(!(switches & (1 << 0)))
 			  newGame();
-			  //main();
-		  }
 	  }
 	  
     mlAdvance(&ml1, &ml2, &ml3,  &fieldFence);

@@ -48,7 +48,7 @@ Layer layer3 = {
 };
 Layer layer2 = {
   (AbShape *)&circle6,
-  {screenWidth/2, (screenHeight/2)-2},
+  {screenWidth/2, (screenHeight/2)},
   {0,0}, {0,0},
   COLOR_GREEN,
   &layer3,

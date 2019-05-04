@@ -143,9 +143,6 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 
     for (axis = 0; axis < 2; axis ++) {
 	    
-	    drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_VIOLET);
-	    drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_VIOLET);
-	    
 	    if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
 	      int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
 	      buzzer_set_period(0);
@@ -221,7 +218,9 @@ void main(){
   layerDraw(&layer0);
 
   layerGetBounds(&fieldLayer, &fieldFence);
-
+  drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_VIOLET);
+  drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_VIOLET);
+	
   enableWDTInterrupts();
   or_sr(0x8);
 

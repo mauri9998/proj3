@@ -6,6 +6,9 @@ static signed int rate = 200;
 #define MIN_PERIOD 1000
 #define MAX_PERIOD 4000
 
+double notes[] = {1898, 0, 1898, 0, 1898, 2394, 2134, 1898, 2134, 1898};
+long tempos[] = {25, 0, 25, 0, 75, 75, 75, 50, 25, 150}; 
+
 void buzzer_init()
 {
     /* 
@@ -26,4 +29,16 @@ void buzzer_set_period(short cycles)
 {
   CCR0 = cycles; 
   CCR1 = cycles >> 5;		/* one half cycle */
+}
+
+void playSong(){
+	int i = 0;
+	long n;
+    
+	while(notes[i] != '\0'){
+		n = 0;
+		buzzer_set_period(notes[i]);
+ 		while(++n < tempos[i]){}
+		i++;
+	}
 }

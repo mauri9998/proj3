@@ -251,14 +251,13 @@ void wdt_c_handler(){
 		  main();
 	  }
 	  else if(player2Score == '9'){
-		  char new_game = 1;
-		  while ((switches & (1 << 0))){
+		  while(){
 			gameOver(1);
-			//newGame();
-			//main();
+			if(!(switches & (1 << 0))){
+				newGame();
+		  		main();
+			}
 		  }
-		  newGame();
-		  main();
 	  }
 	  
     mlAdvance(&ml1, &ml2, &ml3,  &fieldFence);

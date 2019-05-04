@@ -211,7 +211,7 @@ void main(){
   buzzer_init();
   p2sw_init(15);
   
-  if(goal == 1)buzzer_set_period(0);
+  if(score == 1)buzzer_set_period(0);
 
   layerInit(&layer0);
   layerDraw(&layer0);
@@ -270,7 +270,7 @@ void wdt_c_handler(){
 	    if(ml2.layer->posNext.axes[0] >= 27){
 		    ml2.layer->posNext.axes[0] -= 5;
 		    redrawScreen = 1;
-		    goal = 0;
+		    score = 0;
 	    }
     }
 
@@ -278,7 +278,7 @@ void wdt_c_handler(){
 	    if(ml2.layer->posNext.axes[0] <= 102){	
 		    ml2.layer->posNext.axes[0] += 5;
 		    redrawScreen = 1;
-		    goal = 0;
+		    score = 0;
 	    }
     }
 
@@ -286,7 +286,7 @@ void wdt_c_handler(){
 	    if(ml3.layer->posNext.axes[0] >= 26){
 		    ml3.layer->posNext.axes[0] -= 5;
 		    redrawScreen = 1;
-		    goal = 0;
+		    score = 0;
 	    }
     }
 
@@ -294,7 +294,7 @@ void wdt_c_handler(){
 	    if(ml3.layer->posNext.axes[0] <= 102){
 		    ml3.layer->posNext.axes[0] += 5;
 		    redrawScreen = 1;
-		    goal = 0;
+		    score = 0;
 	    }
     }
 

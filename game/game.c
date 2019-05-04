@@ -262,7 +262,7 @@ void wdt_c_handler(){
 	  char new_game = 1;
 	  gameOver(0);
 	  while (new_game){
-	  	if(!switches){
+	  	if(!(switches & (1 << 0))||!(switches & (1 << 1))||!(switches & (1 << 2))||!(switches & (1 << 3))){
 			newGame();
 			main();
 		}
@@ -272,7 +272,7 @@ void wdt_c_handler(){
 	  char new_game = 1;
 	  gameOver(0);
 	  while (new_game){
-	  	if(!switches){
+	  	if(!(switches & (1 << 0))||!(switches & (1 << 1))||!(switches & (1 << 2))||!(switches & (1 << 3))){
 			newGame();
 			main();
 		}

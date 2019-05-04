@@ -276,6 +276,7 @@ void wdt_c_handler(){
     if(!(switches & (1 << 1))){
 	    if(ml2.layer->posNext.axes[0] <= 102){	
 	      ml2.layer->posNext.axes[0] += 5;
+	      bgColor = COLOR_BLACK;
 	      redrawScreen = 1;
 	      goal = 0;
 	    }
@@ -283,7 +284,8 @@ void wdt_c_handler(){
 
     else if(!(switches & (1 << 0))){
       if(ml2.layer->posNext.axes[0] >= 27){
-        ml2.layer->posNext.axes[0] -= 5;
+              ml2.layer->posNext.axes[0] -= 5;
+	      bgColor = COLOR_BLACK;
 	      redrawScreen = 1;
 	      goal = 0;
       }
@@ -292,14 +294,16 @@ void wdt_c_handler(){
     else if(!(switches & (1 << 2))){
        if(ml3.layer->posNext.axes[0] >= 26){
 	      ml3.layer->posNext.axes[0] -= 5;
-        redrawScreen = 1;
-        goal = 0;
+	      bgColor = COLOR_BLACK;
+              redrawScreen = 1;
+              goal = 0;
       }
     }
 
     else if(!(switches & (1 << 3))){
       if(ml3.layer->posNext.axes[0] <= 102){
         ml3.layer->posNext.axes[0] += 5;
+	bgColor = COLOR_BLACK;
         redrawScreen = 1;
         goal = 0;
       }

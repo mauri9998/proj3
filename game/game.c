@@ -141,7 +141,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
     for (axis = 0; axis < 2; axis ++) {
       if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
 	      int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
-		    buzzer_set_period(0);
+	      buzzer_set_period(0);
 	      newPos.axes[axis] += (2*velocity);
       }/**< if outside of fence */
 
@@ -152,7 +152,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	      ml2->layer->color = COLOR_WHITE;
 	      ml->layer->color = COLOR_YELLOW;
 	      ml->velocity.axes[0] += 1;
-        newPos.axes[axis] += (2*velocity);
+	      newPos.axes[axis] += (2*velocity);
 	      buzzer_set_period(1000);
 	      int redrawScreen = 1;
 	    }
@@ -164,7 +164,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	      ml1->layer->color = COLOR_WHITE;
 	      ml->layer->color = COLOR_GREEN;
 	      ml->velocity.axes[0] += 1;
-        newPos.axes[axis] += (2*velocity);
+	      newPos.axes[axis] += (2*velocity);
 	      buzzer_set_period(5000);
 	      int redrawScreen = 1;
 	    }
@@ -172,9 +172,6 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
       // Check if ball has collided with upper fence
 	    else if (ml->layer->posNext.axes[1] == 20){
 	      ml2->layer->color = COLOR_RED;
-        if(player1Score == 9){
-          drawString5x7(screenWidth / 2, screenHeight / 2, "Game Over", COLOR_VIOLET, COLOR_WHITE);
-        }
 	      player1Score ++;
 	      drawChar5x7(52,152, player1Score, COLOR_YELLOW, COLOR_BLACK);
 	      newPos.axes[0] = screenWidth/2;
@@ -188,9 +185,6 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
       // Check if ball has collided with lower fence
 	    else if (ml->layer->posNext.axes[1] == 135){
 	      ml1->layer->color = COLOR_RED;
-        if(player2Score == 9){
-          drawString5x7(screenWidth / 2, screenHeight / 2, "Game Over", COLOR_VIOLET, COLOR_WHITE);
-        }
 	      player2Score ++;
 	      drawChar5x7(120,152, player2Score, COLOR_GREEN, COLOR_BLACK);	   
 	      newPos.axes[0] = screenWidth/2;

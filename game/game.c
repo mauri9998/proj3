@@ -249,7 +249,7 @@ void wdt_c_handler(){
 	  	if(switches){
 			//playSong();
 			newGame();
-			//main();
+			main();
 		}
 	  }
   }
@@ -260,7 +260,7 @@ void wdt_c_handler(){
 	  	if(switches){
 			//playSong();
 			newGame();
-			//main();
+			main();
 		}
 	  }
   }

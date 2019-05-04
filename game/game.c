@@ -130,6 +130,9 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
   
   u_char axis;
   Region shapeBoundary;
+	
+  drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_BLACK);
+  drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_BLACK);
 
   for (; ml; ml = ml->next) {
     vec2Add(&newPos, &ml->layer->posNext, &ml->velocity);
@@ -230,8 +233,6 @@ void main(){
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
 
-  drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_BLACK);
-  drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_BLACK);
   drawChar5x7(52,152, player1Score, COLOR_YELLOW, COLOR_BLACK);
   drawChar5x7(120,152, player2Score, COLOR_GREEN, COLOR_BLACK);
 

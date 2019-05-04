@@ -245,10 +245,8 @@ void wdt_c_handler(){
   if(player1Score == '9'){
 	  char new_game = 1;
 	  gameOver(0);
-	  newGame();
 	  while (new_game){
 	  	if(switches){
-			//playSong();
 			newGame();
 			main();
 		}
@@ -257,9 +255,9 @@ void wdt_c_handler(){
   else if(player2Score == '9'){
 	  char new_game = 1;
 	  gameOver(1);
-	  newGame();
 	  while (new_game){
 	  	if(switches){
+			newGame();
 			main();
 		}
 	  }

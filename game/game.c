@@ -123,6 +123,14 @@ void gameOver(char x){
   }
 }
 
+void newGame(){
+	bgColor = COLOR_BLACK;
+    	layerDraw(&layer0);
+	player1Score = '0';
+	player2Score = '0';
+	int redrawScreen = 1;
+}
+
 void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
   Vec2 newPos;
   
@@ -251,22 +259,24 @@ void wdt_c_handler(){
   u_int switches = p2sw_read();
 	
   if(player1Score == '9'){
-	  player1Score = '0';
-	  player2Score = '0';
 	  char newGame = 1;
 	  gameOver(0);
-	  while (newGame)
-		  if(switches)
-			  main();
+	  while (newGame){
+	  	if(switches){
+			newGame()
+			main();
+		}
+	  }
   }
   else if(player2Score == '9'){
-	  player1Score = '0';
-	  player2Score = '0';
 	  char newGame = 1;
 	  gameOver(0);
-	  while (newGame)
-		  if(switches)
-			  main();
+	  while (newGame){
+	  	if(switches){
+			newGame()
+			main();
+		}
+	  }
   }
 	
   if (count == 15) {

@@ -110,20 +110,16 @@ void gameOver(char x){
   if(x ==0){
 	  bgColor = COLOR_WHITE;
 	  layerDraw(&layer0);
-	  drawString5x7(screenWidth/4, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
-	  drawString5x7(screenWidth / 4, screenHeight / 2 + 10, "Player 1 Wins", COLOR_VIOLET, COLOR_WHITE);
+	  drawString5x7(screenWidth/4, screenHeight/2 + 20, "Game Over", COLOR_BLUE, COLOR_WHITE);
+	  drawString5x7((screenWidth/4-10), screenHeight / 2 + 30, "Player 1 Wins", COLOR_VIOLET, COLOR_WHITE);
 	  int redrawScreen = 1;
-	  int count = 0;
-	  while(++count != 50){}
   }
   else{
 	  bgColor = COLOR_WHITE;
 	  layerDraw(&layer0);
-	  drawString5x7(screenWidth/4, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
-	  drawString5x7(screenWidth / 4, screenHeight / 2 + 10, "Player 2 Wins", COLOR_VIOLET, COLOR_WHITE);
+	  drawString5x7(screenWidth/4, screenHeight/2 + 20, "Game Over", COLOR_BLUE, COLOR_WHITE);
+	  drawString5x7((screenWidth/4)-10, screenHeight / 2 + 30, "Player 2 Wins", COLOR_VIOLET, COLOR_WHITE);
 	  int redrawScreen = 1;
-	  int count = 0;
-	  while(++count != 50){}
   }
 }
 

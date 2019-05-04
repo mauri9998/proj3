@@ -48,7 +48,7 @@ Layer layer3 = {
 };
 Layer layer2 = {
   (AbShape *)&circle6,
-  {screenWidth/2, screenHeight/2 - 2},
+  {screenWidth/2, (screenHeight/2)-2},
   {0,0}, {0,0},
   COLOR_GREEN,
   &layer3,
@@ -171,7 +171,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	      int redrawScreen = 1;
 	    }
 
-	    else if (ml->layer->posNext.axes[1] == 12){
+	    else if (ml->layer->posNext.axes[1] == 10){
 	      ml2->layer->color = COLOR_RED;
 	      player1Score ++;
 	      drawChar5x7(52,152, player1Score, COLOR_YELLOW, COLOR_VIOLET);
@@ -183,7 +183,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	      int redrawScreen = 1;
 	    }
 	    
-	    else if (ml->layer->posNext.axes[1] == 147){
+	    else if (ml->layer->posNext.axes[1] == 145){
 	      ml1->layer->color = COLOR_RED;
 	      player2Score ++;
 	      drawChar5x7(120,152, player2Score, COLOR_GREEN, COLOR_VIOLET);	   

@@ -265,10 +265,12 @@ void wdt_c_handler(){
 	  u_int switches = p2sw_read();
 
     if(player1Score == '9'){
-      gameOver(0);
+	    gameOver(0);
+	    if(sw)home();
     }
     else if(player2Score == '9'){
-      gameOver(1);
+	    gameOver(1);
+	    if(sw)home();
     }
 
     if(!(switches & (1 << 1))){

@@ -113,6 +113,8 @@ void gameOver(char x){
 	  drawString5x7(screenWidth/4, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
 	  drawString5x7(screenWidth / 4, screenHeight / 2 + 10, "Player 1 Wins", COLOR_VIOLET, COLOR_WHITE);
 	  int redrawScreen = 1;
+	  count = 0;
+	  while(++count != 50){}
   }
   else{
 	  bgColor = COLOR_WHITE;
@@ -120,6 +122,8 @@ void gameOver(char x){
 	  drawString5x7(screenWidth/4, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
 	  drawString5x7(screenWidth / 4, screenHeight / 2 + 10, "Player 2 Wins", COLOR_VIOLET, COLOR_WHITE);
 	  int redrawScreen = 1;
+	  count = 0;
+	  while(++count != 50){}
   }
 }
 

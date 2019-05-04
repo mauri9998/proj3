@@ -9,9 +9,14 @@
 
 #define GREEN_LED BIT6
 
-short goal = 1; // checks if any player has made a goal
-char player1Score = '0'; // player1 score tracker
-char player2Score = '0'; // player2 score tracker
+char player1Score = '0';
+char player2Score = '0';
+short score = 1;
+
+u_int bgColor = COLOR_VIOLET;
+int redrawScreen = 1;
+Region fieldFence;
+Region fence = {{0,LONG_EDGE_PIXELS}, {SHORT_EDGE_PIXELS, LONG_EDGE_PIXELS}};
 
 AbRect paddle = {abRectGetBounds, abRectCheck, {15,3}}; /**< 15x3 rectangle */
 AbRect middleLine = {abRectGetBounds, abRectCheck, {61, 0}}; // horizontal line
@@ -56,17 +61,12 @@ Layer layer0 = {		/**< Layer with a white paddle */
   &layer2,
 };
 
-/** Moving Layer
- *  Linked list of layer references
- *  Velocity represents one iteration of change (direction & magnitude)
- */
 typedef struct MovLayer_s {
   Layer *layer;
   Vec2 velocity;
   struct MovLayer_s *next;
 } MovLayer;
 
-/* initial value of {0,0} will be overwritten */
 MovLayer ml1 = { &layer2, {5,5}, 0 };// Ball Layer ml1
 MovLayer ml2 = { &layer0, {5,5}, 0 };// Bottom paddle Layer
 MovLayer ml3 = { &layer3, {5,5}, 0 };// Upper paddle Layer
@@ -106,8 +106,6 @@ int movLayerDraw(MovLayer *movLayers, Layer *layers){
   } // for moving layer being updated
 }	  
 
-Region fence = {{0,LONG_EDGE_PIXELS}, {SHORT_EDGE_PIXELS, LONG_EDGE_PIXELS}}; /**< Create a fence region */
-
 void gameOver(char x){
   if(x ==0){
 	  bgColor = COLOR_WHITE;
@@ -144,14 +142,13 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
 
     for (axis = 0; axis < 2; axis ++) {
-      if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
+	    if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
 	      int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
 	      buzzer_set_period(0);
 	      newPos.axes[axis] += (2*velocity);
-      }/**< if outside of fence */
-
-      // Check if ball has collided with paddle
-      if( (ml->layer->posNext.axes[1] >= 134) && (ml->layer->posNext.axes[0] <=  ml1->layer->posNext.axes[0] + 18 && ml->layer->posNext.axes[0] >= ml1->layer->posNext.axes[0] - 18)){
+	    }
+	    
+	    if( (ml->layer->posNext.axes[1] >= 134) && (ml->layer->posNext.axes[0] <=  ml1->layer->posNext.axes[0] + 18 && ml->layer->posNext.axes[0] >= ml1->layer->posNext.axes[0] - 18)){
 	      int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
 	      ml1->layer->color = COLOR_YELLOW;
 	      ml2->layer->color = COLOR_WHITE;
@@ -162,8 +159,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	      int redrawScreen = 1;
 	    }
 
-      // Check if ball has collided with paddle
-      else if( (ml->layer->posNext.axes[1] <= 21) && (ml->layer->posNext.axes[0] <=  ml2->layer->posNext.axes[0] + 18 && ml->layer->posNext.axes[0] >= ml2->layer->posNext.axes[0] - 18)){
+	    else if( (ml->layer->posNext.axes[1] <= 21) && (ml->layer->posNext.axes[0] <=  ml2->layer->posNext.axes[0] + 18 && ml->layer->posNext.axes[0] >= ml2->layer->posNext.axes[0] - 18)){
 	      int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
 	      ml2->layer->color = COLOR_GREEN;
 	      ml1->layer->color = COLOR_WHITE;
@@ -174,45 +170,36 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	      int redrawScreen = 1;
 	    }
 
-      // Check if ball has collided with upper fence
-	    else if (ml->layer->posNext.axes[1] == 10){
+	    else if (ml->layer->posNext.axes[1] == 5){
 	      ml2->layer->color = COLOR_RED;
 	      player1Score ++;
 	      drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_BLACK);
 	      drawChar5x7(52,152, player1Score, COLOR_YELLOW, COLOR_BLACK);
 	      newPos.axes[0] = screenWidth/2;
 	      newPos.axes[1] = (screenHeight/2);
-	      goal = 1;
+	      score = 1;
 	      ml->velocity.axes[0] = 5;
 	      ml->layer->posNext = newPos;
 	      int redrawScreen = 1;
-      }
-
-      // Check if ball has collided with lower fence
-	    else if (ml->layer->posNext.axes[1] == 145){
+	    }
+	    
+	    else if (ml->layer->posNext.axes[1] == 150){
 	      ml1->layer->color = COLOR_RED;
 	      player2Score ++;
 	      drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_BLACK);
 	      drawChar5x7(120,152, player2Score, COLOR_GREEN, COLOR_BLACK);	   
 	      newPos.axes[0] = screenWidth/2;
 	      newPos.axes[1] = (screenHeight/2);
-	      goal = 1;
+	      score = 1;
 	      ml->velocity.axes[0] = 5;
 	      ml->layer->posNext = newPos;
 	      int redrawScreen = 1;
 	    }
-
       int redrawScreen = 1;
-      //If no player goal keep on updating the ball's position
-      if(goal != 1) ml->layer->posNext =  newPos;
+      if(score != 1) ml->layer->posNext = newPos;
     }/**< for axis */
   }/**< for ml */
 }
-
-u_int bgColor = COLOR_VIOLET;
-int redrawScreen = 1;
-Region fieldFence;
-
 
 void main(){
   P1DIR |= GREEN_LED;	

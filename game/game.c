@@ -248,16 +248,17 @@ void wdt_c_handler(){
   static short count = 0;
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
-  char newGame = 1;
   u_int switches = p2sw_read();
 	
   if(player1Score == '9'){
+	  char newGame = 1;
 	  gameOver(0);
 	  while (newGame)
 		  if(switches)
 			  main();
   }
   else if(player2Score == '9'){
+	  char newGame = 1;
 	  gameOver(0);
 	  while (newGame)
 		  if(switches)

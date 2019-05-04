@@ -258,6 +258,7 @@ void wdt_c_handler(){
 	  while (newGame)
 		  if(switches)
 			  main();
+	  bgColor = COLOR_BLACK;
   }
   else if(player2Score == '9'){
 	  player1Score = '0';
@@ -266,7 +267,8 @@ void wdt_c_handler(){
 	  gameOver(0);
 	  while (newGame)
 		  if(switches)
-			  main();	
+			  main();
+	  bgColor = COLOR_BLACK;
   }
 	
   if (count == 15) {

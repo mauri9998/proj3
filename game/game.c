@@ -245,14 +245,14 @@ void wdt_c_handler(){
   if (count == 15) {
 	  if(player1Score == '9'){
 		  char new_game = 1;
-		  gameOver(0);
-		  while((switches & (1 << 0))){}
+		  //gameOver(0);
+		  while((switches & (1 << 0))){gameOver(0);}
 		  main();
 	  }
 	  else if(player2Score == '9'){
 		  char new_game = 1;
-		  gameOver(1);
 		  while ((switches & (1 << 0))){
+			gameOver(1);
 			//newGame();
 			//main();
 		  }

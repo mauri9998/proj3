@@ -254,7 +254,7 @@ void wdt_c_handler(){
 		  gameOver(1);
 		  if(!(switches & (1 << 0))){
 			  newGame();
-			  main();
+			  //main();
 		  }
 	  }
 	  

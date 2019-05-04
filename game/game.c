@@ -124,12 +124,12 @@ void gameOver(char x){
 }
 
 void newGame(){
-	drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_VIOLET);
-	drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_VIOLET);
 	bgColor = COLOR_VIOLET;
     	layerDraw(&layer0);
 	player1Score = '0';
 	player2Score = '0';
+	drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_VIOLET);
+	drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_VIOLET);
 	int redrawScreen = 1;
 }
 

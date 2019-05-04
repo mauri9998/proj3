@@ -249,27 +249,24 @@ void wdt_c_handler(){
   P1OUT |= GREEN_LED;		      /**< Green LED on when cpu on */
   count ++;
   char newGame = 1;
+  u_int switches = p2sw_read();
+	
+  if(player1Score == '9'){
+	  gameOver(0);
+	  while (newGame)
+		  if(switches)
+			  main();
+  }
+  else if(player2Score == '9'){
+	  gameOver(0);
+	  while (newGame) {
+		  if(switches){
+			  main();	
+  }
+	
   if (count == 15) {
 	  
     mlAdvance(&ml1, &ml2, &ml3,  &fieldFence);
-    u_int switches = p2sw_read();
-
-    if(player1Score == '9'){
-	    gameOver(0);
-	     while (newGame) {
-	    	if(switches){
-			main();
-		}
-	    }	
-    }
-    else if(player2Score == '9'){
-	    gameOver(1);
-	    while (newGame) {
-	    	if(switches){
-			main();
-		}
-	    }	 
-    }
 
     if(!(switches & (1 << 1))){
 	    if(ml2.layer->posNext.axes[0] <= 102){	

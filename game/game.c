@@ -242,28 +242,22 @@ void wdt_c_handler(){
   count ++;
   u_int switches = p2sw_read();
 	
-  if(player1Score == '9'){
-	  char new_game = 1;
-	  gameOver(0);
-	  while (new_game){
-	  	if(switches){
-			//newGame();
-			//main();
-		}
-	  }
-  }
-  else if(player2Score == '9'){
-	  char new_game = 1;
-	  gameOver(1);
-	  while (new_game){
-	  	if(switches){
-			//newGame();
-			//main();
-		}
-	  }
-  }
-	
   if (count == 15) {
+	  if(player1Score == '9'){
+		  char new_game = 1;
+		  gameOver(0);
+		  while((switches & (1 << 0))){}
+		  main();
+	  }
+	  else if(player2Score == '9'){
+		  char new_game = 1;
+		  gameOver(1);
+		  while ((switches & (1 << 0))){
+			//newGame();
+			//main();
+		  }
+		  main();
+	  }
 	  
     mlAdvance(&ml1, &ml2, &ml3,  &fieldFence);
 	  

@@ -142,6 +142,10 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
     abShapeGetBounds(ml->layer->abShape, &newPos, &shapeBoundary);
 
     for (axis = 0; axis < 2; axis ++) {
+	    
+	    drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_VIOLET);
+	    drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_VIOLET);
+	    
 	    if ((shapeBoundary.topLeft.axes[axis] < fence->topLeft.axes[axis]) || (shapeBoundary.botRight.axes[axis] > fence->botRight.axes[axis]) ) {
 	      int velocity = ml->velocity.axes[axis] = -ml->velocity.axes[axis];
 	      buzzer_set_period(0);
@@ -173,8 +177,8 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	    else if (ml->layer->posNext.axes[1] == 10){
 	      ml2->layer->color = COLOR_RED;
 	      player1Score ++;
-	      drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_BLACK);
-	      drawChar5x7(52,152, player1Score, COLOR_YELLOW, COLOR_BLACK);
+	      drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_VIOLET);
+	      drawChar5x7(52,152, player1Score, COLOR_YELLOW, COLOR_VIOLET);
 	      newPos.axes[0] = screenWidth/2;
 	      newPos.axes[1] = (screenHeight/2);
 	      score = 1;
@@ -186,8 +190,8 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	    else if (ml->layer->posNext.axes[1] == 145){
 	      ml1->layer->color = COLOR_RED;
 	      player2Score ++;
-	      drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_BLACK);
-	      drawChar5x7(120,152, player2Score, COLOR_GREEN, COLOR_BLACK);	   
+	      drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_VIOLET);
+	      drawChar5x7(120,152, player2Score, COLOR_GREEN, COLOR_VIOLET);	   
 	      newPos.axes[0] = screenWidth/2;
 	      newPos.axes[1] = (screenHeight/2);
 	      score = 1;

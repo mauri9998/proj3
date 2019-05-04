@@ -251,8 +251,8 @@ void wdt_c_handler(){
 	  gameOver(0);
 	  while (new_game){
 	  	if(switches){
-			newGame();
-			main();
+			//newGame();
+			//main();
 		}
 	  }
   }
@@ -261,8 +261,8 @@ void wdt_c_handler(){
 	  gameOver(1);
 	  while (new_game){
 	  	if(switches){
-			newGame();
-			main();
+			//newGame();
+			//main();
 		}
 	  }
   }

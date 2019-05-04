@@ -112,13 +112,13 @@ void gameOver(char x){
   if(x ==0){
     bgColor = COLOR_WHITE;
     layerDraw(&layer0);
-    drawString5x7(screenWidth/2, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
+    drawString5x7(screenWidth/2, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_BLACK);
     int redrawScreen = 1;
   }
   else{
     bgColor = COLOR_WHITE;
     layerDraw(&layer0);
-    drawString5x7(screenWidth/2, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_WHITE);
+    drawString5x7(screenWidth/2, screenHeight/2, "Game Over", COLOR_BLUE, COLOR_BLACK);
     int redrawScreen = 1;
   }
 }
@@ -165,7 +165,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	    }
 
       // Check if ball has collided with upper fence
-	    else if (ml->layer->posNext.axes[1] == 20){
+	    else if (ml->layer->posNext.axes[1] == 10){
 	      ml2->layer->color = COLOR_RED;
 	      player1Score ++;
 	      drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_BLACK);
@@ -179,7 +179,7 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
       }
 
       // Check if ball has collided with lower fence
-	    else if (ml->layer->posNext.axes[1] == 135){
+	    else if (ml->layer->posNext.axes[1] == 145){
 	      ml1->layer->color = COLOR_RED;
 	      player2Score ++;
 	      drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_BLACK);
@@ -258,9 +258,6 @@ void wdt_c_handler(){
 	  while (newGame)
 		  if(switches)
 			  main();
-	  bgColor = COLOR_BLACK;
-	  layerDraw(&layer0);
-	  redrawScreen = 1;
   }
   else if(player2Score == '9'){
 	  player1Score = '0';
@@ -270,9 +267,6 @@ void wdt_c_handler(){
 	  while (newGame)
 		  if(switches)
 			  main();
-	  bgColor = COLOR_BLACK;
-	  layerDraw(&layer0);
-	  redrawScreen = 1;
   }
 	
   if (count == 15) {

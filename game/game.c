@@ -262,8 +262,7 @@ void wdt_c_handler(){
 	  char new_game = 1;
 	  gameOver(0);
 	  while (new_game){
-	  	if(switches && count == 15){
-			count ++;
+	  	if(!(switches & (1 << 0)) && !(switches & (1 << 3))){
 			newGame();
 			main();
 		}
@@ -273,8 +272,7 @@ void wdt_c_handler(){
 	  char new_game = 1;
 	  gameOver(0);
 	  while (new_game){
-	  	if(switches && count == 15){
-			count ++;
+	  	if(switches){
 			newGame();
 			main();
 		}
@@ -292,7 +290,7 @@ void wdt_c_handler(){
 	      redrawScreen = 1;
 	      goal = 0;
 	    }
-	  }
+    }
 
     else if(!(switches & (1 << 0))){
       if(ml2.layer->posNext.axes[0] >= 27){

@@ -266,11 +266,11 @@ void wdt_c_handler(){
 
     if(player1Score == '9'){
 	    gameOver(0);
-	    if(sw)home();
+	    if(switches)main();
     }
     else if(player2Score == '9'){
 	    gameOver(1);
-	    if(sw)home();
+	    if(switches)main();
     }
 
     if(!(switches & (1 << 1))){

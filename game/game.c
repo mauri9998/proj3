@@ -260,6 +260,7 @@ void wdt_c_handler(){
 			  main();
 	  bgColor = COLOR_BLACK;
 	  layerDraw(&layer0);
+	  redrawScreen = 1;
   }
   else if(player2Score == '9'){
 	  player1Score = '0';
@@ -271,6 +272,7 @@ void wdt_c_handler(){
 			  main();
 	  bgColor = COLOR_BLACK;
 	  layerDraw(&layer0);
+	  redrawScreen = 1;
   }
 	
   if (count == 15) {

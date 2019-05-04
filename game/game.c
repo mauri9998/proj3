@@ -18,45 +18,45 @@ int redrawScreen = 1;
 Region fieldFence;
 Region fence = {{0,LONG_EDGE_PIXELS}, {SHORT_EDGE_PIXELS, LONG_EDGE_PIXELS}};
 
-AbRect paddle = {abRectGetBounds, abRectCheck, {15,3}}; /**< 15x3 rectangle */
-AbRect middleLine = {abRectGetBounds, abRectCheck, {61, 0}}; // horizontal line
-AbRectOutline fieldOutline = {	/* playing field */
+AbRect paddle = {abRectGetBounds, abRectCheck, {15,3}}; 
+AbRect middleLine = {abRectGetBounds, abRectCheck, {61, 0}}; 
+AbRectOutline fieldOutline = {
   abRectOutlineGetBounds, abRectOutlineCheck,   
   {screenWidth/2 - 2, screenHeight/2 - 6}
 };
 
-Layer fieldLayer = {		/* playing field as a layer */
+Layer fieldLayer = {
   (AbShape *) &fieldOutline,
-  {screenWidth/2, screenHeight/2 -3},/**< center */
-  {0,0}, {0,0},				    /* last & next pos */
+  {screenWidth/2, screenHeight/2 -3},
+  {0,0}, {0,0},	
   COLOR_WHITE,
   0
 };
-Layer layer4 = {		/**< Layer with a horizontal line */
+Layer layer4 = {/
   (AbShape *)&middleLine,
-  {(screenWidth/2 ), (screenHeight/2 - 3)}, /**< Middle field divider */
-  {0,0}, {0,0},				    /* last & next pos */
+  {(screenWidth/2 ), (screenHeight/2 - 3)}, 
+  {0,0}, {0,0},	
   COLOR_WHITE,
   &fieldLayer,
 };		     
-Layer layer3 = {		/**< Layer with a white paddle */
+Layer layer3 = {
   (AbShape *)&paddle,
-  {(screenWidth/2), (screenHeight/2)-70}, /** Top of Screen */
-  {0,0}, {52,10},				    /* last & next pos */
+  {(screenWidth/2), (screenHeight/2)-70},
+  {0,0}, {52,10},
   COLOR_WHITE,
   &layer4,
 };
-Layer layer2 = {		/**< Layer with a green circle */
+Layer layer2 = {
   (AbShape *)&circle6,
-  {screenWidth/2, screenHeight/2}, /**< center */
-  {0,0}, {0,0},				    /* last & next pos */
+  {screenWidth/2, screenHeight/2 - 2},
+  {0,0}, {0,0},
   COLOR_GREEN,
   &layer3,
 };
-Layer layer0 = {		/**< Layer with a white paddle */
+Layer layer0 = {
   (AbShape *)&paddle,
-  {(screenWidth/2), (screenHeight/2)+64}, /**< Bottom of Screen */
-  {0,0}, {52,144},				    /* last & next pos */
+  {(screenWidth/2), (screenHeight/2)+64}, 
+  {0,0}, {52,144},
   COLOR_WHITE,
   &layer2,
 };
@@ -67,23 +67,23 @@ typedef struct MovLayer_s {
   struct MovLayer_s *next;
 } MovLayer;
 
-MovLayer ml1 = { &layer2, {5,5}, 0 };// Ball Layer ml1
-MovLayer ml2 = { &layer0, {5,5}, 0 };// Bottom paddle Layer
-MovLayer ml3 = { &layer3, {5,5}, 0 };// Upper paddle Layer
+MovLayer ml1 = { &layer2, {5,5}, 0 };
+MovLayer ml2 = { &layer0, {5,5}, 0 };
+MovLayer ml3 = { &layer3, {5,5}, 0 };
 
 int movLayerDraw(MovLayer *movLayers, Layer *layers){
   int row, col;
   MovLayer *movLayer;
 
-  and_sr(~8);			/**< disable interrupts (GIE off) */
-  for (movLayer = movLayers; movLayer; movLayer = movLayer->next) { /* for each moving layer */
+  and_sr(~8);
+  for (movLayer = movLayers; movLayer; movLayer = movLayer->next) {
     Layer *l = movLayer->layer;
     l->posLast = l->pos;
     l->pos = l->posNext;
   }
-  or_sr(8);			/**< disable interrupts (GIE on) */
+  or_sr(8);
 
-  for (movLayer = movLayers; movLayer; movLayer = movLayer->next) { /* for each moving layer */
+  for (movLayer = movLayers; movLayer; movLayer = movLayer->next) {
 
     Region bounds;
     layerGetBounds(movLayer->layer, &bounds);
@@ -94,16 +94,16 @@ int movLayerDraw(MovLayer *movLayers, Layer *layers){
 	      Vec2 pixelPos = {col, row};
 	      u_int color = bgColor;
 	      Layer *probeLayer;
-	      for (probeLayer = layers; probeLayer;probeLayer = probeLayer->next) { /* probe all layers, in order */
+	      for (probeLayer = layers; probeLayer;probeLayer = probeLayer->next) {
 	        if (abShapeCheck(probeLayer->abShape, &probeLayer->pos, &pixelPos)) {
 	          color = probeLayer->color;
 	          break; 
-	        } /* if probe check */
-	      } // for checking all layers at col, row
+	        }
+	      }
 	      lcd_writeColor(color); 
-      } // for col
-    } // for row
-  } // for moving layer being updated
+      } 
+    }
+  }
 }	  
 
 void gameOver(char x){
@@ -174,7 +174,6 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	    else if (ml->layer->posNext.axes[1] == 10){
 	      ml2->layer->color = COLOR_RED;
 	      player1Score ++;
-	      //drawString5x7(3, 152, "Player1:", COLOR_YELLOW, COLOR_VIOLET);
 	      drawChar5x7(52,152, player1Score, COLOR_YELLOW, COLOR_VIOLET);
 	      newPos.axes[0] = screenWidth/2;
 	      newPos.axes[1] = (screenHeight/2);
@@ -187,7 +186,6 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	    else if (ml->layer->posNext.axes[1] == 145){
 	      ml1->layer->color = COLOR_RED;
 	      player2Score ++;
-	      //drawString5x7(72, 152, "Player2:", COLOR_GREEN, COLOR_VIOLET);
 	      drawChar5x7(120,152, player2Score, COLOR_GREEN, COLOR_VIOLET);	   
 	      newPos.axes[0] = screenWidth/2;
 	      newPos.axes[1] = (screenHeight/2);
@@ -198,8 +196,8 @@ void mlAdvance(MovLayer *ml, MovLayer *ml1, MovLayer *ml2, Region *fence){
 	    }
       int redrawScreen = 1;
       if(score != 1) ml->layer->posNext = newPos;
-    }/**< for axis */
-  }/**< for ml */
+    }
+  }
 }
 
 void main(){

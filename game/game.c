@@ -259,7 +259,7 @@ void wdt_c_handler(){
   }
   else if(player2Score == '9'){
 	  gameOver(0);
-	  while (newGame) {
+	  while (newGame)
 		  if(switches){
 			  main();	
   }

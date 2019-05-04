@@ -247,6 +247,7 @@ void wdt_c_handler(){
 		  char new_game = 1;
 		  //gameOver(0);
 		  while((switches & (1 << 0))){gameOver(0);}
+		  newGame();
 		  main();
 	  }
 	  else if(player2Score == '9'){
@@ -256,6 +257,7 @@ void wdt_c_handler(){
 			//newGame();
 			//main();
 		  }
+		  newGame();
 		  main();
 	  }
 	  

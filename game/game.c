@@ -263,7 +263,7 @@ void wdt_c_handler(){
 	  gameOver(0);
 	  while (newGame){
 	  	if(switches){
-			newGame()
+			newGame();
 			main();
 		}
 	  }
@@ -273,7 +273,7 @@ void wdt_c_handler(){
 	  gameOver(0);
 	  while (newGame){
 	  	if(switches){
-			newGame()
+			newGame();
 			main();
 		}
 	  }

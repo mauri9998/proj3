@@ -247,9 +247,9 @@ void wdt_c_handler(){
 	  gameOver(0);
 	  while (new_game){
 	  	if(switches){
-			playSong();
+			//playSong();
 			newGame();
-			main();
+			//main();
 		}
 	  }
   }
@@ -258,9 +258,9 @@ void wdt_c_handler(){
 	  gameOver(1);
 	  while (new_game){
 	  	if(switches){
-			playSong();
+			//playSong();
 			newGame();
-			main();
+			//main();
 		}
 	  }
   }
